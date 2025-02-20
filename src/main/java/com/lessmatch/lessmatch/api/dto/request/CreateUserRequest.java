@@ -12,16 +12,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
-
+public class CreateUserRequest {
+    @NotBlank(message = "Name is required")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
-
-    @Size(min = 3, max = 50, message = "Last name must be between 3 and 50 characters")
-    private String lastName;
-
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,50}$", message = "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be between 8 and 50 characters long.")
-    private String password;
 
     @NotBlank(message = "Icon is required")
     private String icon;
