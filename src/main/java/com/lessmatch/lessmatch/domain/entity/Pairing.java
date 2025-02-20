@@ -1,5 +1,7 @@
 package com.lessmatch.lessmatch.domain.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,4 +51,19 @@ public class Pairing {
     @JoinColumn(name = "song_id", nullable = false)
     private Song song;
 
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    public boolean isExpired() {
+        if (pairedUser == null) {
+            return createdAt.plusHours(24).isBefore(LocalDateTime.now());
+        }else{
+            return createdAt.plusHours(72).isBefore(LocalDateTime.now());
+        }
+    }
 }

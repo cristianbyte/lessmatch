@@ -13,7 +13,6 @@ public class UserResponse {
     
     private Long id;
     private String name;
-    private String lastName;
     private String icon;
-    private String createdAt;
+    private String userIdentifier;
 }
