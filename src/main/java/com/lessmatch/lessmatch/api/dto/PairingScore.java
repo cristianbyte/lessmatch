@@ -9,8 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SongBasicInfo {
-    private String name;
-    private String albumImage;
+public class PairingScore {
+    private Long id;
+    private PublicUserInfo user1;
+    private PublicUserInfo user2;
+    private double compatibilityScore;
+    private int matchingCriteria;
+    private SongBasicInfo song;
     private int verseCount;
 }
