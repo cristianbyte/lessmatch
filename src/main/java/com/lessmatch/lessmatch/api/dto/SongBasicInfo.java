@@ -1,4 +1,4 @@
-package com.lessmatch.lessmatch.api.dto.response;
+package com.lessmatch.lessmatch.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
-    
-    private Long id;
+public class SongBasicInfo {
     private String name;
-    private String icon;
-    private String userIdentifier;
+    private String albumImage;
+    private int verseCount;
 }
