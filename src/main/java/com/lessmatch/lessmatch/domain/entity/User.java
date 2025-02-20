@@ -5,14 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,27 +30,14 @@ public class User {
     private String name;
     
     @Column(nullable = false, length = 50)
-    private String lastName;
-    
-    @Column(nullable = false, length = 50)
-    private String password;
-    
-    @Column(nullable = false, length = 50)
     private String icon;
-    
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-        }
-    }
+    @Column(unique = true, length = 100)
+    private String userIdentifier;
 
-    @OneToMany(mappedBy = "userOne", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Evaluation> evaluationsAsUserOne = new HashSet<>();
+    @OneToMany(mappedBy = "creatorUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Pairing> createdPairings = new HashSet<>();
 
-    @OneToMany(mappedBy = "userTwo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Evaluation> evaluationsAsUserTwo = new HashSet<>();
+    @OneToMany(mappedBy = "pairedUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Pairing> joinedPairings = new HashSet<>();
 }

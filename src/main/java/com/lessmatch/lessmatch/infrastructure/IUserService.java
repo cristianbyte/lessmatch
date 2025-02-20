@@ -15,5 +15,5 @@ public interface IUserService extends
     UpdateService<UserRequest, UserResponse, Long>,
     DeleteService<Long>
 {
-    List<UserResponse> readAll();
+    List<UserResponse> findAll();
 }

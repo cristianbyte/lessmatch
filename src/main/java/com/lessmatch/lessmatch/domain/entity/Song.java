@@ -21,7 +21,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Song {
-
     @Id
     @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +28,11 @@ public class Song {
 
     @Column(nullable = false, unique = true)
     private String name; // Song name + artist name
+
     private String albumImage;
+    
     private int verseCount;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Evaluation> evaluations = new HashSet<>();
+    private Set<Pairing> pairings = new HashSet<>();
 }
