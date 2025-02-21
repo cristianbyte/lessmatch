@@ -1,4 +1,4 @@
-package com.lessmatch.lessmatch.infrastructure.generic;
+package com.lessmatch.lessmatch.infrastructure.abstract_service.generic;
 
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
