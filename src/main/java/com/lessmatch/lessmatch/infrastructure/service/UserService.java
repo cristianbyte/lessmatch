@@ -1,6 +1,5 @@
 package com.lessmatch.lessmatch.infrastructure.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lessmatch.lessmatch.api.dto.request.UserRequest;
@@ -19,10 +18,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserService implements IUserService {
 
-    @Autowired
     private final UserRepo userRepository;
 
-    @Autowired
     private final UserMapper userMapper;
 
     @Override
@@ -45,11 +42,11 @@ public class UserService implements IUserService {
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        userRepository.delete(this.find(id));
     }
 
 
     public User find(String id) {
-        return userRepository.findById(id).orElseThrow(() -> new IdNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new IdNotFoundException("User not found with id: " + id));
     }
 }
