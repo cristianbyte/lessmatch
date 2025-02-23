@@ -1,6 +1,6 @@
 package com.lessmatch.lessmatch.api.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +22,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
-    @Autowired
     private final IUserService userService;
 
     @PostMapping
     public ResponseEntity<UserResponse> create(@Validated @RequestBody UserRequest request) {
-        return ResponseEntity.ok(this.userService.create(request));
+        UserResponse userResponse = this.userService.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 
     @GetMapping("/login/{id}")
     public ResponseEntity<UserResponse> get(@PathVariable String id){
-        return ResponseEntity.ok( this.userService.getById(id));
+        UserResponse userResponse = this.userService.getById(id);
+        return ResponseEntity.status( HttpStatus.FOUND).body(userResponse);
     }
     
 }
