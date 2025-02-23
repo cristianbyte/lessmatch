@@ -11,10 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PairingScore {
     private Long id;
+    private int verseCount;
+    private int criteria;
+    private double score;
+    private SongBasicInfo song;
     private PublicUserInfo user1;
     private PublicUserInfo user2;
-    private double compatibilityScore;
-    private int matchingCriteria;
-    private SongBasicInfo song;
-    private int verseCount;
 }
