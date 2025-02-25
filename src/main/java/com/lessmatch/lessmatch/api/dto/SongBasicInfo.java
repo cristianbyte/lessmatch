@@ -10,7 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SongBasicInfo {
-    private String name;
+
+    private String title;
+    private String artist;
     private String albumImage;
     private int verseCount;
+    private String lyricsApiUrl;
+    
 }
