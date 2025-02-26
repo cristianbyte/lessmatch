@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lessmatch.lessmatch.api.dto.SongBasicInfo;
 import com.lessmatch.lessmatch.api.dto.request.SongRequest;
@@ -13,7 +14,6 @@ import com.lessmatch.lessmatch.domain.repo.SongRepo;
 import com.lessmatch.lessmatch.infrastructure.abstract_service.ISongService;
 import com.lessmatch.lessmatch.infrastructure.mapper.SongMapper;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -23,6 +23,14 @@ public class SongService implements ISongService {
 
     private final SongRepo songRepository;
     private final SongMapper songMapper;
+
+    public Song getOrCreateSong(SongRequest songRequest) {
+        return songRepository.findByTitleAndArtist(songRequest.getTitle(), songRequest.getArtist())
+            .orElseGet(() -> {
+                Song newSong = songMapper.toEntity(songRequest);
+                return songRepository.save(newSong);
+            });
+    }
 
     @Override
     public SongBasicInfo create(SongRequest request) {
