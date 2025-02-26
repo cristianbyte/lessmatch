@@ -1,5 +1,7 @@
 package com.lessmatch.lessmatch.api.dto.request;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,7 +24,7 @@ public class SongRequest {
     @Size(max = 120, message = "Artist name must not exceed 120 characters")
     private String artist;
     
-    @NotBlank(message = "Album image URL is required")
+    @URL(message = "La URL de la imagen debe ser válida")
     @Size(max = 250, message = "Album image URL must not exceed 250 characters")
     private String albumImage;
     

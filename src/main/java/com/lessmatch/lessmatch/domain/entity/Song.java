@@ -1,7 +1,7 @@
 package com.lessmatch.lessmatch.domain.entity;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,12 +44,13 @@ public class Song {
     private Set<Pairing> pairings = new HashSet<>();
     
     public String getLyricsApiUrl() {
-        try {
-            String encodedArtist = URLEncoder.encode(this.artist, "UTF-8");
-            String encodedTitle = URLEncoder.encode(this.title, "UTF-8");
-            return "https://api.lyrics.ovh/v1/" + encodedArtist + "/" + encodedTitle;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Error encoding URL parameters", e);
-        }
+        String encodedArtist = URLEncoder.encode(this.artist, StandardCharsets.UTF_8);
+        String encodedTitle = URLEncoder.encode(this.title, StandardCharsets.UTF_8);
+        
+        // replace "+" by "%20"
+        encodedArtist = encodedArtist.replace("+", "%20");
+        encodedTitle = encodedTitle.replace("+", "%20");
+        
+        return "https://api.lyrics.ovh/v1/" + encodedArtist + "/" + encodedTitle;
     }
 }

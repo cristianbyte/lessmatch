@@ -1,5 +1,8 @@
 package com.lessmatch.lessmatch.infrastructure.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.lessmatch.lessmatch.api.dto.SongBasicInfo;
@@ -17,6 +20,7 @@ import lombok.AllArgsConstructor;
 @Transactional
 @AllArgsConstructor
 public class SongService implements ISongService {
+
     private final SongRepo songRepository;
     private final SongMapper songMapper;
 
@@ -46,6 +50,14 @@ public class SongService implements ISongService {
     public Song find(Long id) {
         return songRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Song not found with id: " + id));
     }
+
+    @Override
+    public List<SongBasicInfo> getMostPopularSongs() {
+        return songRepository.findMostPopularSongs().stream()
+        .map(songMapper::toResponse)
+        .collect(Collectors.toList());
+    }
+
 
     
 }

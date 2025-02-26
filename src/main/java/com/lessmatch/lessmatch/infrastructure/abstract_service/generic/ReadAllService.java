@@ -4,5 +4,5 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.P
 import org.springframework.data.domain.Page;
 
 public interface ReadAllService<Response> {
-    Page<Response> getAll(Pageable pageable);
+    Page<Response> readAll(Pageable pageable);
 }
