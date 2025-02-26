@@ -1,5 +1,7 @@
 package com.lessmatch.lessmatch.api.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +25,7 @@ public class SongController {
     private final ISongService songService;
 
     @GetMapping("/popular")
-    public ResponseEntity<?> getMostPopularSongs() {
+    public ResponseEntity<List<SongBasicInfo>> getMostPopularSongs() {
         return ResponseEntity.ok(this.songService.getMostPopularSongs());
     }
     

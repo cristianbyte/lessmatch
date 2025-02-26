@@ -1,6 +1,7 @@
 package com.lessmatch.lessmatch.infrastructure.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lessmatch.lessmatch.api.dto.request.UserRequest;
 import com.lessmatch.lessmatch.api.dto.response.UserResponse;
@@ -10,7 +11,6 @@ import com.lessmatch.lessmatch.domain.repo.UserRepo;
 import com.lessmatch.lessmatch.infrastructure.abstract_service.IUserService;
 import com.lessmatch.lessmatch.infrastructure.mapper.UserMapper;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
