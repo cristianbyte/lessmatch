@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lessmatch.lessmatch.api.dto.request.PairingRequest;
 import com.lessmatch.lessmatch.api.dto.response.PairingResponse;
+import com.lessmatch.lessmatch.api.error.IdNotFoundException;
+import com.lessmatch.lessmatch.api.error.InvalidOperationException;
 import com.lessmatch.lessmatch.domain.entity.Pairing;
 import com.lessmatch.lessmatch.domain.entity.Song;
 import com.lessmatch.lessmatch.domain.repo.PairingRepo;
@@ -23,41 +25,52 @@ public class PairingService implements IPairingService{
     private final SongService songService;
     private final PairingRepo pairingRepository;
     
-    public Pairing createPairingEntity(PairingRequest pairingRequest) {
+    @Override
+    public PairingResponse create(PairingRequest pairingRequest) {
         Pairing pairing = pairingMapper.toEntity(pairingRequest);
         
-        // Establece las relaciones manualmente
+        // Set the relationships manually
         pairing.setCreatorUser(userService.find(pairingRequest.getCreatorUserId()));
         
-        // Obtener o crear la canción
+        // Get or create song
         Song songInfo = songService.getOrCreateSong(pairingRequest.getSong());
         pairing.setSong(songService.find(songInfo.getId()));
-        
-        return pairing;
+
+        return pairingMapper.toResponse(pairingRepository.save(pairing));
     }
     
     @Override
-    public PairingResponse create(PairingRequest pairingRequest) {
-        Pairing pairing = createPairingEntity(pairingRequest);
+    public PairingResponse udpate(String pairingCode, String pairedUserId) {
+
+        Pairing pairing = findByPairingCode(pairingCode);
+        if (pairing.getPairedUser() != null) {
+            throw new InvalidOperationException("This pairing code has already been used");
+        }else if (pairing.isExpired()) {
+            throw new InvalidOperationException("This pairing code has expired");
+        }
+
+        pairing.setPairedUser(userService.find(pairedUserId));
         return pairingMapper.toResponse(pairingRepository.save(pairing));
     }
 
-    @Override
-    public PairingResponse getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
-    }
-
-    @Override
-    public PairingResponse update(Long id, PairingRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
-    @Override
-    public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public Pairing findByPairingCode(String pairingCode) {
+        return pairingRepository.findByPairingCode(pairingCode)
+            .orElseThrow(() -> new InvalidOperationException("Pairing not found with pairing code: " + pairingCode));
     }
     
+    @Override
+    public PairingResponse getById(Long id) {
+        return pairingMapper.toResponse(this.find(id));
+    }
+    @Override
+    public void delete(Long id) {
+        pairingRepository.delete(this.find(id));
+    }
+
+    public Pairing find(Long id) {
+        return pairingRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Pairing not found with id: " + id));
+    }
+
+
+
 }

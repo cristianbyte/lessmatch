@@ -15,6 +15,6 @@ import lombok.Setter;
 public class PairingResponse {
     private String pairingCode;
     private PublicUserInfo creatorUser;
-    private PublicUserInfo pairedUser;  
+    private PublicUserInfo pairedUser;
     private SongBasicInfo song;
 }
