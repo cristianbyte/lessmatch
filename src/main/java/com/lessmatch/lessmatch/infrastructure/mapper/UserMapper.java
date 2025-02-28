@@ -10,7 +10,6 @@ import com.lessmatch.lessmatch.domain.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdPairings", ignore = true)
     @Mapping(target = "joinedPairings", ignore = true)
     User toEntity(UserRequest userRequest);
