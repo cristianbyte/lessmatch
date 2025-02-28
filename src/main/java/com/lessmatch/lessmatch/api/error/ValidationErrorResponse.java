@@ -1,5 +1,6 @@
 package com.lessmatch.lessmatch.api.error;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +15,6 @@ import lombok.Setter;
 public class ValidationErrorResponse {
     private int statusCode;
     private String message;
-    private long timestamp;
+    private LocalDateTime timestamp;
     private Map<String, String> errors;
 }

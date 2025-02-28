@@ -21,5 +21,11 @@ public interface PairingMapper {
     
     PairingResponse toResponse(Pairing pairing);
     
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creatorUser", ignore = true)
+    @Mapping(target = "pairedUser", ignore = true)
+    @Mapping(target = "song", ignore = true)
+    @Mapping(target = "pairingCode", ignore=true)
+    @Mapping(target = "createdAt", ignore = true)
     void toUpdate(PairingRequest pairing, @MappingTarget Pairing target);
 }
