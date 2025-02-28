@@ -2,6 +2,7 @@ package com.lessmatch.lessmatch.domain.entity;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 import jakarta.persistence.Column;
@@ -44,6 +45,9 @@ public class Pairing {
 
     @Column(unique = true, length = 6, nullable = false)
     private String pairingCode;
+
+    private List<Boolean> creatorLines;
+    private List<Boolean> pairedLines;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_user_id", nullable = false)

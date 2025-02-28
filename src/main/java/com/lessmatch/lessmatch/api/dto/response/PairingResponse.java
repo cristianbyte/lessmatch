@@ -1,5 +1,7 @@
 package com.lessmatch.lessmatch.api.dto.response;
 
+import java.util.List;
+
 import com.lessmatch.lessmatch.api.dto.PublicUserInfo;
 import com.lessmatch.lessmatch.api.dto.SongBasicInfo;
 
@@ -15,6 +17,8 @@ import lombok.Setter;
 public class PairingResponse {
     private String pairingCode;
     private PublicUserInfo creatorUser;
+    private List<Boolean> creatorLines;
     private PublicUserInfo pairedUser;
+    private List<Boolean> pairedLines;
     private SongBasicInfo song;
 }

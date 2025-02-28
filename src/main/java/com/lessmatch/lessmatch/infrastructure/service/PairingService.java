@@ -3,10 +3,12 @@ package com.lessmatch.lessmatch.infrastructure.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lessmatch.lessmatch.api.dto.request.LineSelectionRequest;
 import com.lessmatch.lessmatch.api.dto.request.PairingRequest;
 import com.lessmatch.lessmatch.api.dto.response.PairingResponse;
 import com.lessmatch.lessmatch.api.error.IdNotFoundException;
 import com.lessmatch.lessmatch.api.error.InvalidOperationException;
+import com.lessmatch.lessmatch.api.error.InvalidRequestException;
 import com.lessmatch.lessmatch.domain.entity.Pairing;
 import com.lessmatch.lessmatch.domain.entity.Song;
 import com.lessmatch.lessmatch.domain.repo.PairingRepo;
@@ -41,7 +43,10 @@ public class PairingService implements IPairingService{
     
     @Override
     public PairingResponse udpate(String pairingCode, String pairedUserId) {
-
+        
+        if (!pairingCode.matches("[A-Z0-9]{6}")) {
+            throw new InvalidRequestException("Invalid pairing code format");
+        }
         Pairing pairing = findByPairingCode(pairingCode);
         if (pairing.getPairedUser() != null) {
             throw new InvalidOperationException("This pairing code has already been used");
@@ -69,6 +74,24 @@ public class PairingService implements IPairingService{
 
     public Pairing find(Long id) {
         return pairingRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Pairing not found with id: " + id));
+    }
+
+    @Override
+    public PairingResponse updateLineSelections(LineSelectionRequest request) {
+        Pairing pairing = this.findByPairingCode(request.getPairingCode());
+
+        if (pairing.getCreatorUser().getId().equals(request.getUserId())){
+            pairing.setCreatorLines(request.getSelectedLines());
+
+        }else if( pairing.getPairedUser() != null &&
+            pairing.getPairedUser().getId().equals(request.getUserId())){
+            pairing.setPairedLines(request.getSelectedLines());
+            
+        }else{
+            throw new InvalidOperationException("User is not authorized to update this pairing");
+        }
+
+        return pairingMapper.toResponse(pairingRepository.save(pairing));
     }
 
 

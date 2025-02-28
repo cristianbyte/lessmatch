@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lessmatch.lessmatch.api.dto.request.UserRequest;
 import com.lessmatch.lessmatch.api.dto.response.UserResponse;
 import com.lessmatch.lessmatch.api.error.IdNotFoundException;
+import com.lessmatch.lessmatch.api.error.InvalidOperationException;
 import com.lessmatch.lessmatch.domain.entity.User;
 import com.lessmatch.lessmatch.domain.repo.UserRepo;
 import com.lessmatch.lessmatch.infrastructure.abstract_service.IUserService;
@@ -24,6 +25,11 @@ public class UserService implements IUserService {
 
     @Override
     public UserResponse create(UserRequest request) {
+        // Pending: Verify the user via email.
+        if(userRepository.findById(request.getId()).isPresent()){
+            throw new InvalidOperationException("User already exists with id: " + request.getId());
+        }
+
         User user = userMapper.toEntity(request);
         return userMapper.toResponse(userRepository.save(user));
     }
