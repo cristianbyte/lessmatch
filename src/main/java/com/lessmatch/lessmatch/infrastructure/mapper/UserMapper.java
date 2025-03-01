@@ -14,6 +14,7 @@ public interface UserMapper {
     @Mapping(target = "joinedPairings", ignore = true)
     User toEntity(UserRequest userRequest);
     
+    @Mapping(target = "pairings", ignore = true)
     UserResponse toResponse(User user);
 
     @Mapping(target = "id", ignore = true)

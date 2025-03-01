@@ -1,5 +1,7 @@
 package com.lessmatch.lessmatch.api.dto.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class UserResponse {
     private String id;
     private String name;
     private String icon;
+    private List<PairingResponse> pairings;
 }
