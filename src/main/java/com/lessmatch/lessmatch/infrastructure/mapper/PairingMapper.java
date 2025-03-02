@@ -20,6 +20,7 @@ public interface PairingMapper {
     @Mapping(target = "createdAt", ignore = true)
     Pairing toEntity(PairingRequest pairingRequest);
     
+    @Mapping(target = "pairingScore", ignore = true)
     PairingResponse toResponse(Pairing pairing);
 
     // void toUpdate(PairingRequest pairing, @MappingTarget Pairing target);

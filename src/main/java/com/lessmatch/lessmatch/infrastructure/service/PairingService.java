@@ -62,9 +62,22 @@ public class PairingService implements IPairingService{
         return pairingRepository.findByPairingCode(pairingCode)
             .orElseThrow(() -> new InvalidOperationException("Pairing not found with pairing code: " + pairingCode));
     }
+
+    //other method : get metrics
+
+    // PairingScore pairingScore = new PairingScore();
+    // pairingScore.setSelectedVerses(PairingScoreCalculator.calculateSelectedVerses(pairing.getCreatorLines(), pairing.getPairedLines()));
+    // pairingScore.setMatchedVerses(PairingScoreCalculator.calculateMatchedVerses(pairing.getCreatorLines(), pairing.getPairedLines()));
+    // pairingScore.setMatchPercentage(pairingScore.getSelectedVerses() > 0 ? (double) pairingScore.getMatchedVerses() / pairingScore.getSelectedVerses() : 0);
+    // pairingScore.setConnectionScore(pairingScore.getMatchPercentage() * 100);
+
+    // pairing.setPairingScore(pairingScore);
     
     @Override
     public PairingResponse getById(Long id) {
+
+
+
         return pairingMapper.toResponse(this.find(id));
     }
     @Override

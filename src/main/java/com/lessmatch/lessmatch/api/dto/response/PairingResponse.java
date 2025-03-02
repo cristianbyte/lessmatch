@@ -2,6 +2,7 @@ package com.lessmatch.lessmatch.api.dto.response;
 
 import java.util.List;
 
+import com.lessmatch.lessmatch.api.dto.PairingScore;
 import com.lessmatch.lessmatch.api.dto.PublicUserInfo;
 import com.lessmatch.lessmatch.api.dto.SongBasicInfo;
 
@@ -21,4 +22,5 @@ public class PairingResponse {
     private PublicUserInfo pairedUser;
     private List<Boolean> pairedLines;
     private SongBasicInfo song;
+    private PairingScore pairingScore;
 }
