@@ -1,9 +1,11 @@
 package com.lessmatch.lessmatch.api.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lessmatch.lessmatch.api.dto.request.LineSelectionRequest;
 import com.lessmatch.lessmatch.api.dto.request.PairingRequest;
 import com.lessmatch.lessmatch.api.dto.response.PairingResponse;
+import com.lessmatch.lessmatch.api.dto.response.PairingResponseFull;
 import com.lessmatch.lessmatch.api.error.InvalidRequestException;
 import com.lessmatch.lessmatch.infrastructure.abstract_service.IPairingService;
 
@@ -56,4 +59,18 @@ public class PairingController {
         PairingResponse response = pairingService.updateLineSelections(request);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<PairingResponse>> getPairingsByUserId(@PathVariable String userId) {
+        List<PairingResponse> pairingResponse = this.pairingService.getPairingsByUserId(userId);
+        return ResponseEntity.ok(pairingResponse);
+    }
+
+    @GetMapping("refresh/{pairingCode}")
+    public ResponseEntity<PairingResponseFull> getPairingByCode(@PathVariable String pairingCode) {
+        PairingResponseFull pairingResponse = this.pairingService.getFullPairingByCode(pairingCode);
+        return ResponseEntity.ok(pairingResponse);
+    }
+
+    
 }
