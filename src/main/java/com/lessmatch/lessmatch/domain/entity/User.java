@@ -1,5 +1,8 @@
 package com.lessmatch.lessmatch.domain.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,10 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity(name = "users")
 @Getter
@@ -22,18 +21,14 @@ import java.util.Set;
 public class User {
 
     @Id
-    @Column(updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(updatable = false, nullable = false, unique = true)
+    private String id;
     
     @Column(nullable = false, length = 50)
     private String name;
     
     @Column(nullable = false, length = 50)
     private String icon;
-
-    @Column(unique = true, length = 100)
-    private String userIdentifier;
 
     @OneToMany(mappedBy = "creatorUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Pairing> createdPairings = new HashSet<>();
