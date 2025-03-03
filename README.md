@@ -1,22 +1,22 @@
 # LessMatch 🎶❤️  
 
-LessMatch es una aplicación que permite a las parejas encontrar coincidencias emocionales en las letras de las canciones. A medida que escuchan música, eligen estrofa por estrofa si refleja lo que sienten por la otra persona.  
+LessMatch is an application that allows couples to find emotional matches in song lyrics. As they listen to music, they choose verse by verse whether it reflects what they feel for their partner.  
 
-## Tecnologías 🛠️  
+## Technologies 🛠️  
 - **Backend:** Java + Spring Boot  
-- **Base de datos:** MySQL
+- **Database:** MySQL  
 
-## Estructura del proyecto 📂  
-- `api/` → Controladores y manejo de API  
-- `config/` → Configuraciones generales  
-- `domain/` → Entidades y lógica de negocio  
-- `infrastructure/` → Persistencia y adaptadores  
-- `util/` → Clases auxiliares  
+## Project Structure 📂  
+- `api/` → Controllers and API management  
+- `config/` → General configurations  
+- `domain/` → Entities and business logic  
+- `infrastructure/` → Persistence and adapters  
+- `util/` → Utility classes  
 
-## Instalación 🚀  
-1. Clona el repositorio  
-2. Configura las variables de entorno  
-3. Ejecuta el proyecto con:  
+## Installation 🚀  
+1. Clone the repository  
+2. Set up the environment variables  
+3. Run the project with:  
    ```sh
    mvn spring-boot:run
-   ```
+
