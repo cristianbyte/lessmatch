@@ -35,7 +35,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> get(@PathVariable String id){
         UserResponse userResponse = this.userService.getById(id);
-        return ResponseEntity.status( HttpStatus.FOUND).body(userResponse);
+        return ResponseEntity.ok(userResponse);
     }
 
     @PutMapping("/{id}")
