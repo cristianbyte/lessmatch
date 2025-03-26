@@ -10,14 +10,12 @@ import com.lessmatch.lessmatch.domain.entity.Song;
 
 @Mapper(componentModel = "spring")
 public interface SongMapper {
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "pairings", ignore = true)
     Song toEntity(SongRequest songRequest);
 
     @Mapping(target = "lyricsApiUrl", expression = "java(song.getLyricsApiUrl())")
     SongBasicInfo toResponse(Song song);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "pairings", ignore = true)
     void toUpdate(SongRequest song, @MappingTarget Song target);
 }
