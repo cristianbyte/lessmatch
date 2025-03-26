@@ -24,10 +24,15 @@ public class SongRequest {
     @NotBlank(message = "Song title is required")
     @Size(max = 120, message = "Title must not exceed 120 characters")
     private String title;
+
     
     @NotBlank(message = "Artist name is required")
     @Size(max = 120, message = "Artist name must not exceed 120 characters")
     private String artist;
+    
+    @NotBlank(message = "Preview text is required")
+    @Size(max = 500, message = "Preview text must not exceed 500 characters")
+    private String preview;
     
     @URL(message = "Album image URL must be valid")
     @Size(max = 250, message = "Album image URL must not exceed 250 characters")
