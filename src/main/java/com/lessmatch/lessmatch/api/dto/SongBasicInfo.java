@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SongBasicInfo {
 
+    private Long id;
     private String title;
     private String artist;
     private String albumImage;
