@@ -30,6 +30,9 @@ public class Song {
     
     @Column(nullable = false)
     private String artist;
+
+    @Column(nullable = false, length = 500, columnDefinition = "TEXT")
+    private String preview;
     
     @Column(nullable = false)
     private String albumImage;

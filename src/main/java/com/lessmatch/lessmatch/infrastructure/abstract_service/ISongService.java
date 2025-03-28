@@ -7,4 +7,5 @@ import com.lessmatch.lessmatch.api.dto.request.SongRequest;
 
 public interface ISongService extends CrudService<SongRequest, SongBasicInfo, Long>{
     List<SongBasicInfo> getMostPopularSongs();
+    SongBasicInfo findByCode(String code);
 }
