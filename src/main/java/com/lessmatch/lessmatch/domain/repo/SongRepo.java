@@ -13,4 +13,6 @@ public interface SongRepo extends JpaRepository<Song,Long>{
     List<Song> findMostPopularSongs();
 
     Optional<Song> findByTitleAndArtist(String title, String artist);
+
+    Song findByPairingsPairingCode(String pairingCode);
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lessmatch.lessmatch.api.dto.SongBasicInfo;
 import com.lessmatch.lessmatch.api.dto.request.SongRequest;
 import com.lessmatch.lessmatch.api.error.IdNotFoundException;
+import com.lessmatch.lessmatch.api.error.InvalidRequestException;
 import com.lessmatch.lessmatch.domain.entity.Song;
 import com.lessmatch.lessmatch.domain.repo.SongRepo;
 import com.lessmatch.lessmatch.infrastructure.abstract_service.ISongService;
@@ -30,6 +31,16 @@ public class SongService implements ISongService {
                 Song newSong = songMapper.toEntity(songRequest);
                 return songRepository.save(newSong);
             });
+    }
+
+    @Override
+    public SongBasicInfo findByCode(String code) {
+
+        Song song = songRepository.findByPairingsPairingCode(code);
+        if (song == null) {
+            throw new InvalidRequestException("No song found for pairing code: " + code);
+        }
+        return songMapper.toResponse(song);
     }
 
     @Override
