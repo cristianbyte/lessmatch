@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     
-    <groupId>com.lessmatch</groupId>
-    <artifactId>lessmatch</artifactId>
+    <groupId>com.uni_verso</groupId>
+    <artifactId>uni_verso</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lessmatch</name>
+    <name>uni_verso</name>
     <description>Application to assess song compatibility between couples.</description>
     
     <properties>
