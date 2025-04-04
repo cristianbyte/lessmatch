@@ -18,4 +18,5 @@ public interface IPairingService extends
         PairingResponse updateLineSelections(LineSelectionRequest request);
         List<PairingResponse> getPairingsByUserId(String userId);
         PairingResponseFull getFullPairingByCode(String pairingCode);
+        void cleanExpiredPairings();
 }

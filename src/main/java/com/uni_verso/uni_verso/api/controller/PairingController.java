@@ -43,6 +43,7 @@ public class PairingController {
         if (userId == null || userId.isEmpty()) {
             throw new InvalidRequestException("User ID is required");
         }
+        pairingService.cleanExpiredPairings();
         PairingResponse pairingResponse = this.pairingService.udpate(pairingCode, userId);
         return ResponseEntity.ok(pairingResponse);
     }

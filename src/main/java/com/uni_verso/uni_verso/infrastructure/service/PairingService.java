@@ -1,5 +1,6 @@
 package com.uni_verso.uni_verso.infrastructure.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.uni_verso.uni_verso.api.dto.request.LineSelectionRequest;
 import com.uni_verso.uni_verso.api.dto.request.PairingRequest;
 import com.uni_verso.uni_verso.api.dto.response.PairingResponse;
 import com.uni_verso.uni_verso.api.dto.response.PairingResponseFull;
+import com.uni_verso.uni_verso.api.error.CodeExpiredException;
 import com.uni_verso.uni_verso.api.error.IdNotFoundException;
 import com.uni_verso.uni_verso.api.error.InvalidOperationException;
 import com.uni_verso.uni_verso.api.error.InvalidRequestException;
@@ -53,19 +55,21 @@ public class PairingService implements IPairingService{
     }
 
     @Override
+    @Transactional
     public PairingResponse udpate(String pairingCode, String pairedUserId) {
-        
         if (!pairingCode.matches("[A-Z0-9]{6}")) {
             throw new InvalidRequestException("Invalid pairing code format");
         }
-        Pairing pairing = findByPairingCode(pairingCode);
+             
+        Pairing pairing = pairingRepository.findByPairingCode(pairingCode)
+            .orElseThrow(() -> new CodeExpiredException("Pairing code not found or expired"));
+        
         if (pairing.getPairedUser() != null) {
             throw new InvalidOperationException("This pairing code has already been used");
-        }else if (pairing.isExpired()) {
-            throw new InvalidOperationException("This pairing code has expired");
         }
-
+        
         pairing.setPairedUser(userService.find(pairedUserId));
+        
         return pairingMapper.toResponse(pairingRepository.save(pairing));
     }
 
@@ -113,6 +117,13 @@ public class PairingService implements IPairingService{
     public void delete(Long id) {
         // only can delete the creator of the pairing
         pairingRepository.delete(this.find(id));
+    }
+
+    @Override
+    public void cleanExpiredPairings() {
+        LocalDateTime now = LocalDateTime.now();
+        int affectedRows = pairingRepository.deleteExpiredPairings(now.minusHours(24), now.minusHours(72));
+        System.out.println("Deleted " + affectedRows + " expired pairings.");
     }
 
     public Pairing find(Long id) {
