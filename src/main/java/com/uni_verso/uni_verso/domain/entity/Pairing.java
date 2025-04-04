@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "pairings")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
