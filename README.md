@@ -1,6 +1,6 @@
-# LessMatch 🎶❤️  
+# Univeso 🎶❤️  
 
-LessMatch is an application that allows couples to find emotional matches in song lyrics. As they listen to music, they choose verse by verse whether it reflects what they feel for their partner.  
+Universo is an application that allows couples to find emotional matches in song lyrics. As they listen to music, they choose verse by verse whether it reflects what they feel for their partner.  
 
 ## Technologies 🛠️  
 - **Backend:** Java + Spring Boot  
