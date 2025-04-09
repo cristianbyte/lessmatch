@@ -5,7 +5,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
+import com.uni_verso.uni_verso.infrastructure.persistence.BooleanListConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -46,7 +49,12 @@ public class Pairing {
     @Column(unique = true, length = 6, nullable = false)
     private String pairingCode;
 
+    @Column(columnDefinition = "TEXT")
+    @Convert(converter = BooleanListConverter.class)
     private List<Boolean> creatorLines;
+    
+    @Column(columnDefinition = "TEXT")
+    @Convert(converter = BooleanListConverter.class)
     private List<Boolean> pairedLines;
 
     @ManyToOne(fetch = FetchType.LAZY)
