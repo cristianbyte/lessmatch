@@ -30,7 +30,7 @@ public class SecurityConfig {
         return httpSecurity
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/user/auth").permitAll();
+                    auth.requestMatchers("/api/v1/user/auth").permitAll();
                     auth.anyRequest().authenticated();
                 }).sessionManagement(session -> {
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
