@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,11 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/pairing")
+@CrossOrigin(
+    origins = {"https://uni-verso.vercel.app", "https://universo.coder.red"}, 
+    allowCredentials = "true", 
+    allowedHeaders = {"Authorization", "Content-Type", "Accept"}
+)
 public class PairingController {
 
     private final IPairingService pairingService;
