@@ -3,6 +3,6 @@ services:
     name: uni-verso-api
     runtime: docker
     repo: https://github.com/cristianbyte/uni-verso-api
-    branch: develop
+    branch: production
     plan: free
     dockerfilePath: Dockerfile
