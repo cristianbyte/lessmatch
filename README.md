@@ -27,7 +27,7 @@ CORS configuration for frontend communication, and is container-ready for cloud 
 - **Frontend:** React + Vite  
 - **Styling:** CSS Modules  
 - **Backend:** Java + Spring Boot  
-- **Database:** MySQL  
+- **Database:** Postgresql
 - **Authentication:** JWT (JSON Web Tokens)  
 - **Hosting:** Render (API) + Vercel (Frontend)  
 - **Deployment:** Docker  
